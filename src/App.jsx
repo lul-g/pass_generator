@@ -4,18 +4,37 @@ import './App.css'
 import alpha from './assets/alpha'
 
 function App() {
+  const [letter, setLetter] = useState('')
   const [pass1, setPass1] = useState('')
   const [pass2, setPass2] = useState('')
+  const timer = ms => new Promise(res => setTimeout(res, ms))
+
+  // function set1() {
+    
+  // }
+  async function decode(pass, len) {
+    for(let i =0; i < len; i++) {
+        let rand = Math.floor(Math.random() * alpha.length);
+        await timer(50);
+        setLetter(prev => pass + alpha[rand] + alpha[rand + 1] + alpha[rand + 2])
+    }    
+    setLetter(prev => '')
+}
+
   function generator() {
-    setPass1(pass => '')
-    setPass2(pass => '')
+    setPass1(prev => '')
+    setPass2(prev => '')
     let len = document.getElementById("text").value
-    len = len ? (len > 15 ? 15: len) : 15
+    len = len ? (len > 10 ? 10: len) : 10
+
+    decode(letter, len)    
     
     for(let i =0; i < len ; i++) {
       let rand = Math.floor(Math.random() * alpha.length);
       setPass1(prev => prev.concat(alpha[rand]))
     }
+    
+
     for(let i =0; i < len ; i++) {
       let rand = Math.floor(Math.random() * alpha.length);
       setPass2(prev => prev.concat(alpha[rand]))
@@ -32,7 +51,7 @@ function App() {
         </div>
 
         <div className='pass'>
-          <p className='pass1'>{pass1}</p>
+          <p className='pass1'>{pass1}<span>{letter}</span></p>
           <p className='pass2'>{pass2}</p>
         </div>
         
