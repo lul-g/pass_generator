@@ -10,7 +10,7 @@ function App() {
     setPass1(pass => '')
     setPass2(pass => '')
     let len = document.getElementById("text").value
-    len = len ? (len > 15 ? 15: len) : 1
+    len = len ? (len > 15 ? 15: len) : 15
     
     for(let i =0; i < len ; i++) {
       let rand = Math.floor(Math.random() * alpha.length);
